@@ -1,6 +1,6 @@
 console.log("Lets write JavaScript")
 
-async function getSongs(){
+async function getSongs() {
     let a = await fetch("http://127.0.0.1:3000/songs/")
     let response = await a.text();
     console.log(response)
@@ -10,14 +10,14 @@ async function getSongs(){
     let songs = []
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
-        if(element.href.endsWith(".mp3")){
+        if (element.href.endsWith(".mp3")) {
             songs.push(element.href.split("songs")[1])
         }
     }
     return songs
 }
 
-async function main(){
+async function main() {
     //get list of all the songs
     let songs = await getSongs()
     console.log(songs)
@@ -26,7 +26,7 @@ async function main(){
         songUL.innerHTML = songUL.innerHTML + `<li>
                             <img class="invert" src="music.svg" alt="">
                             <div class="info">
-                                <div>${song.replace("%5C"," ").replace(".mp3","")}</div>
+                                <div>${song.replace("%5C", " ").replace(".mp3", "")}</div>
                                 <div>Arijit</div>
                             </div>
                             <div class="playnow">
@@ -35,12 +35,6 @@ async function main(){
                             </div>
                         </li>`
     }
-
-    //play the first song
-    var audio = new Audio(songs[0]);
-    audio.play();
-    audio.addEventListener("loadeddata", ()=>{
-        console.log(audio.duration, audio.currentSrc,audio.currentTime)
-    })
+    
 }
 main()
