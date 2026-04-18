@@ -16,6 +16,7 @@ body{
 .right{
     width: 75vw;
     margin: 15px 0px;
+    position: relative;
 }
 .home ul li{
     display: flex;
@@ -128,4 +129,48 @@ body{
 .loginbtn:hover{
     font-size: 17px;
     color: rgb(35, 34, 34);
+}
+.playbar{
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    width: 95%;
+    padding: 15px;
+}
+.songbuttons{
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+.songList ul{
+    padding: 0 12px;
+}
+.songList ul li{
+    list-style-type: decimal;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    cursor: pointer;
+    padding: 12px 8px;
+    border: 1px solid white;
+    margin: 12px 0px;
+    border-radius: 5px;
+}
+.playnow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.playnow span{
+    font-size: 13px;
+    width: 56px;
+    padding: 12px;
+}
+.info{
+    font-size: 14px;
+    width: 300px;
+}
+.songList{
+    height: 440px;
+    overflow: auto;
 }
