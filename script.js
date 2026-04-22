@@ -27,24 +27,30 @@ async function getSongs() {
 }
 
 const playMusic = (track, pause = false)=>{
-    let audio = new Audio("/Songs/"+track+".mp3")
+    track = track.replace("%5C", "").replace(".mp3", "").trim();
     currentSong.src = "/Songs/"+track+".mp3"
-    currentSong.play();
-    play.src = "pause.svg";  
-    document.querySelector(".songinfo").innerHTML = decodeURI(track);
+    if(!pause){
+        currentSong.play();
+        play.src = "pause.svg";  
+    }
+    else{
+        play.src = "play.svg"
+    }
+    document.querySelector(".songinfo").innerHTML = track;
     document.querySelector(".songtime").innerHTML = "00:00 / 00:00"
 }
 
 async function main() {
     //get list of all the songs
     let songs = await getSongs()
-    
+    playMusic(songs[0],true)
+
     let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0]
     for (const song of songs) {
         songUL.innerHTML = songUL.innerHTML + `<li>
                             <img class="invert" src="music.svg" alt="">
                             <div class="info">
-                                <div>${song.replace("%5C", " ").replace(".mp3", "")}</div>
+                                <div>${song.replace("%5C", "").replace(".mp3", "").trim()}</div>
                                 <div>Arijit</div>
                             </div>
                             <div class="playnow">
@@ -76,6 +82,13 @@ async function main() {
     currentSong.addEventListener("timeupdate", ()=>{
         console.log(currentSong.currentTime,currentSong.duration);
         document.querySelector(".songtime").innerHTML = `${formatTime(currentSong.currentTime)} / ${formatTime(currentSong.duration)}`
+        document.querySelector(".circle").style.left = (currentSong.currentTime/currentSong.duration)*100 + "%";
+    })
+    // Add an eventlistener to seekbar
+    document.querySelector(".seekbar").addEventListener("click", e=>{
+        let percent = (e.offsetX/e.target.getBoundingClientRect().width);
+        document.querySelector(".circle").style.left = (percent * 100) + "%";
+        currentSong.currentTime = (currentSong.duration * percent);
     })
 }
 main()
