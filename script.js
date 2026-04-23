@@ -107,7 +107,6 @@ async function main() {
         currentSong.pause();
         console.log("Previous clicked");
         let a = currentSong.src.split('/').pop();
-        console.log(songs)
         let index = songs.indexOf("%5C"+a);
         if((index-1)>=0){
             playMusic(songs[index-1]);
@@ -117,11 +116,14 @@ async function main() {
         currentSong.pause();
         console.log("Next clicked");
         let a = currentSong.src.split('/').pop();
-        console.log(songs)
         let index = songs.indexOf("%5C"+a);
         if((index+1)<songs.length){
             playMusic(songs[index+1]);
         }
+    })
+    //Add an event to volume
+    document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change", e=>{
+        currentSong.volume = parseInt(e.target.value)/100;
     })
 }
 main()
