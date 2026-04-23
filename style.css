@@ -274,6 +274,10 @@ body {
         background-color: black;
     }
 
+    .songinfo, .songtime{
+        width: auto;
+    }
+
     .right {
         width: 100vw;
     }

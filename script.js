@@ -1,7 +1,11 @@
 console.log("Lets write JavaScript")
 let currentSong = new Audio();
+let songs;
 
 function formatTime(seconds) {
+    if(isNaN(seconds) || seconds<=0){
+        return "00:00";
+    }
     seconds = Math.floor(seconds);
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -42,7 +46,7 @@ const playMusic = (track, pause = false)=>{
 
 async function main() {
     //get list of all the songs
-    let songs = await getSongs()
+    songs = await getSongs()
     playMusic(songs[0],true)
 
     let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0]
@@ -97,6 +101,27 @@ async function main() {
     //Add an eventlistener for close button
     document.querySelector(".close").addEventListener("click", e=>{
         document.querySelector(".left").style.left = "-120%";
+    })
+    //Add an event listener to previous and next
+    previous.addEventListener("click",e=>{
+        currentSong.pause();
+        console.log("Previous clicked");
+        let a = currentSong.src.split('/').pop();
+        console.log(songs)
+        let index = songs.indexOf("%5C"+a);
+        if((index-1)>=0){
+            playMusic(songs[index-1]);
+        }
+    })
+    next.addEventListener("click",e=>{
+        currentSong.pause();
+        console.log("Next clicked");
+        let a = currentSong.src.split('/').pop();
+        console.log(songs)
+        let index = songs.indexOf("%5C"+a);
+        if((index+1)<songs.length){
+            playMusic(songs[index+1]);
+        }
     })
 }
 main()
