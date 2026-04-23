@@ -90,5 +90,13 @@ async function main() {
         document.querySelector(".circle").style.left = (percent * 100) + "%";
         currentSong.currentTime = (currentSong.duration * percent);
     })
+    //Add an eventlistener for hamburger
+    document.querySelector(".hamburger").addEventListener("click", e=>{
+        document.querySelector(".left").style.left = 0+"%";
+    })
+    //Add an eventlistener for close button
+    document.querySelector(".close").addEventListener("click", e=>{
+        document.querySelector(".left").style.left = "-120%";
+    })
 }
 main()
